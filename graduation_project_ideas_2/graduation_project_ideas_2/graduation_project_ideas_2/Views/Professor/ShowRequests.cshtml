@@ -1,0 +1,115 @@
+﻿@model IEnumerable<graduation_project_ideas_2.Models.projects>
+
+@{
+    ViewBag.Title = "ShowRequests";
+    Layout = "~/Views/Shared/_ProfessorLayout.cshtml";
+}
+
+
+<div>
+    <input type="hidden" value="@Session["userid"]" name="Id" />
+    <!-- page content and controls will be here -->
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <!-- table that shows volunteer record list -->
+                <center>
+                    <table class="table hoverable bordered" style="width:600px; background-color:inherit;border:groove ;color:white;border-radius:10px;" >
+                        <thead>
+                            <tr>
+                                <th id="f"> team </th>
+                                <th id="f">Details</th>
+                                <th id="f">describtion </th>
+                                <th id="f">action </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < ViewBag.numberRow; i++)
+                            {
+
+                            <tr>
+                                <td style="width:200px;">
+                                    @ViewBag.memberdetails[i]</td>
+                                   <td> @Html.ActionLink("More Details", "showteam", new { @id = @ViewBag.leader_id[i]})
+                                </td>
+                                <td>@ViewBag.projectdetails[i]</td>
+                                <td class="e_d">
+                                    @using (Html.BeginForm("ShowRequsts", "Professor", FormMethod.Post, new { @id = "acceptform" }))
+        {
+                            <input type="hidden" name="to" , value="@ViewBag.mailsto[i]" />
+                            <input type="hidden" name="subject" value="about request..." />
+                            <input type="hidden" name="body" value="you are accepted from @ViewBag.pro_name..." />
+                            <button id="accept" style="width:80px; margin-bottom:5px;text-align:center;background-color:inherit ;color:white;">@Html.ActionLink("accept", "accept", new { @leader_id = @ViewBag.leader_id[i], @pro_id = @Session["userid"] })</button>
+
+}
+                                    @using (Html.BeginForm("ShowRequsts", "Professor", FormMethod.Post, new { @id = "rejectform" }))
+        {
+                            <input type="hidden" name="to" , value="@ViewBag.mailsto[i]" />
+                            <input type="hidden" name="subject" value="about request..." />
+                            <input type="hidden" name="body" value="you are rejected from @ViewBag.pro_name..." />
+                            <button id="reject" style="width:80px; text-align:center;background-color:inherit ;color:white;">@Html.ActionLink("reject", "reject", new { @leader_id = @ViewBag.leader_id[i], @pro_id = @Session["userid"] })</button>
+
+}
+                                </td>
+                                @*<td>
+                                    @Html.ActionLink("go", "index", new { id = @ViewBag.leader.user_id })
+                                </td>*@
+                            </tr>
+
+
+                            }
+
+                        </tbody>
+
+                    </table>
+                </center>
+            </div> <!-- end col s12 -->
+        </div> <!-- end row -->
+    </div> <!-- end container -->
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#accept").click(function () {
+            myData = $("#acceptform").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Professor/ShowRequests",
+                data: myData,
+                success: function (response) {
+                    if (response.result == 1) {
+                        alert("sent successfully...");
+                    } else {
+                        alert("fail to sent...");
+                    }
+
+                }
+
+            })
+
+        })
+
+
+        $("#reject").click(function () {
+            myData = $("#rejectform").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Professor/ShowRequests",
+                data: myData,
+                success: function (response) {
+                    if (response.result == 1) {
+                        alert("sent successfully...");
+                    } else {
+                        alert("fail to sent...");
+                    }
+
+                }
+
+            })
+
+        })
+
+    });
+</script>

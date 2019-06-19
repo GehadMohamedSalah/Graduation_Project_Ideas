@@ -1,0 +1,50 @@
+﻿@model graduation_project_ideas_2.Models.users
+
+@{
+    ViewBag.Title = "Add_Del_Pro";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div>
+    <center style="margin-top:50px;">
+        <h5 style="color:white">Are you sure you want to delete this?</h5>
+        <table style="width:700px; border-radius:10px; background-color:inherit">
+            <tr style=" background-color:inherit;color:white;font-size:20px;font-weight:bold">
+                <td> @Html.DisplayNameFor(model => model.fullname)</td>
+                <td>@Html.DisplayNameFor(model => model.username)</td>
+                <td>@Html.DisplayNameFor(model => model.email)</td>
+                <td>Delete</td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>@Html.DisplayFor(model => model.fullname)</td>
+                <td>@Html.DisplayFor(model => model.username)</td>
+                <td>@Html.DisplayFor(model => model.email)</td>
+
+
+                <td>
+                    @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-actions no-color">
+                        <input type="submit" value="Delete" class="btn btn-default" style="background-color:#88a3b8;"/>
+                    </div>
+            }
+                </td>
+            </tr>
+        </table>
+
+    </center>
+            
+            
+            
+            
+            
+            
+            
+           
+   
+</div>

@@ -1,0 +1,57 @@
+﻿@model graduation_project_ideas_2.Models.users
+
+@{
+    ViewBag.Title = "editmem";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<div>
+    <center>
+        <input type="hidden" value="@Session["UserID"]" name="teamleader_id" />
+        <section>
+            <h1>My Profile</h1>
+        </section>
+        <div id="edition_field" style="width:740px;background-color:#2c3e50">
+            <h3>Edit the profile</h3>
+            @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+            <table border="0">
+                <tr>
+                    <td>
+                        <label>fullname</label>
+                    </td>
+                    <td>
+                        <input type="text" id="fullname" name="fullname" required value=" @Html.DisplayFor(model => model.fullname )" style="width:500px; border-radius:10px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>username</label>
+                    </td>
+                    <td>
+                        <input type="text" id="username" name="username" required value="@Html.DisplayFor(model => model.username)" style="width:500px; border-radius:10px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>email</label>
+                    </td>
+                    <td>
+                        <input type="text" id="email" name="email" required value="@Html.DisplayFor(model => model.email)" style="width:500px; border-radius:10px;"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>password</label>
+                    </td>
+                    <td>
+                        <input type="text" id="password" name="password" required value="@Html.DisplayFor(model => model.password)" style="width:500px; border-radius:10px;"/>
+                    </td>
+                </tr>
+            </table>
+            <button type="submit"  value="NotDelivedEdit" style=" width:200px; border-radius:10px; background-color:dimgrey;padding:5px;"> Edit </button>
+            }
+        </div>
+    </center>
+</div>

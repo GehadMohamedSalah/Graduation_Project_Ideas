@@ -1,0 +1,73 @@
+﻿@model graduation_project_ideas_2.Models.projects
+@{
+    ViewBag.Title = "AddProject";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<div >
+
+    @using (Html.BeginForm("AddProject", "Student", FormMethod.Post, new { @id = "msform", @style = "height:600px;", @enctype = "multipart/form-data" }))
+    {
+        <ul id="progressbar" style="width:480px;text-align:center">
+            <li class="active">Team Member</li>
+            <li>Project Idea</li>
+            <li>Professors</li>
+        </ul>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <fieldset style="background-color:inherit;" >
+            <h2 class="fs-title">Project Desc</h2>
+            @Html.EditorFor(model => model.proj_name, new { htmlAttributes = new { @placeholder = "proj_name" } })
+            @Html.ValidationMessageFor(model => model.proj_name, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.proj_desc, new { htmlAttributes = new { @placeholder = "proj_desc" } })
+            @Html.ValidationMessageFor(model => model.proj_desc, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.proj_tools, new { htmlAttributes = new { @placeholder = "proj_tools" } })
+            @Html.ValidationMessageFor(model => model.proj_tools, "", new { @class = "text-danger" })
+            @*@Html.EditorFor(model => model.teamleader_id, new { htmlAttributes = new { @type = "number", @placeholder = "teamleader_id" } })*@
+            <input type="hidden" value="@Session["userid"]" name="Id" />
+            <input type="submit" id="save"class="addProject" value="Add Project" name="addProject" style="width:150px;padding:9px;background-color:#88a3b8;color:white;margin-top:15px;" />
+            @*<a href="" style="background-color:#1e90ff;color:white;padding:11px 40px;font-size:15px;border-radius:10px;margin-left:13px;">Next</a>*@
+        </fieldset>
+
+    }
+
+
+    <!-- multistep form -->
+    <!-- progressbar -->
+    <!-- fieldsets -->
+
+
+
+
+</div>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#save").click(function () {
+            myData = $("#msform").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Student/AddProject",
+                data: myData,
+                success: function (response) {
+                    if (response.result == 0) {
+                        alert("Project Added Successfully...")
+                    } else {
+                        alert("You can not add again or check your validation ...")
+                    }
+
+                }
+
+            })
+
+        })
+
+
+    });
+
+</script>

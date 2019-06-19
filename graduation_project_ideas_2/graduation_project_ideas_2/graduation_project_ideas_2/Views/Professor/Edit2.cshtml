@@ -1,0 +1,71 @@
+﻿@model graduation_project_ideas_2.Models.professors
+
+@{
+    ViewBag.Title = "editmem";
+    Layout = "~/Views/Shared/_ProfessorLayout.cshtml";
+}
+
+<center>
+    <div>
+
+        <section>
+            <h1>My Profile</h1>
+        </section>
+        <div class="table_of_books" style="width:740px;background-color:#2c3e50">
+            <table>
+                <tr>
+                    <td style=" color:white">
+                        @*<div class="title">@Html.DisplayFor(model => model.exp_year)</div>
+                            <div><span class="book_year">@Html.DisplayFor(model => model.pro_desc)</span><span class="year_format"></span></div>*@
+                    </td>
+                    <td>
+                        <p><button id="edit" style="border-radius:10px; height:40px; background-color:dimgrey">Edit</button></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="edition_field" style="display:none; width:740px;background-color:#2c3e50">
+            <h3>Edit the profile</h3>
+            @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" }) <p>
+            <br>
+            @Html.EditorFor(model => model.exp_year, new { htmlAttributes = new { @id = "year", @name = "year", @placeholder = "year...", @style = "width:500px; border - radius:10px; " } })
+
+            @* <input type="text" id="year" name="year" required value=" @Html.DisplayFor(model => model.exp_year )" style="width:500px; border-radius:10px;" />*@
+            @Html.ValidationMessageFor(model => model.exp_year, "", new { @class = "text-danger" })
+
+        </p>
+
+        <p>
+            <br>
+            @Html.EditorFor(model => model.pro_desc, new { htmlAttributes = new { @id = "desc", @name = "desc", @placeholder = "desc...", @style = "width:500px; border - radius:10px; " } })
+            @* <input type="text" id="desc" name="desc" required value="@Html.DisplayFor(model => model.pro_desc)" style="width:500px; border-radius:10px;" />*@
+            @Html.ValidationMessageFor(model => model.pro_desc, "", new { @class = "text-danger" })
+
+        </p>
+        <input type="hidden" value="@Session["userid"]" name="Id" />
+        <input type="submit" value="Edit" style=" width:200px; border-radius:10px; background-color:dimgrey" />
+
+}
+
+
+
+        </div>
+
+    </div>
+</center>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#edit").click(function () {
+            $("#edition_field").slideToggle(1000);
+        })
+    });
+
+</script>
+

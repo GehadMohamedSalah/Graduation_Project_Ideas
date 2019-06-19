@@ -1,0 +1,69 @@
+﻿@model IEnumerable<graduation_project_ideas_2.Models.projects>
+
+@{
+    ViewBag.Title = "ShowRequests";
+    Layout = "~/Views/Shared/_ProfessorLayout.cshtml";
+}
+
+
+<div>
+    <input type="hidden" value="@Session["userid"]" name="Id" />
+    <!-- page content and controls will be here -->
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <!-- table that shows volunteer record list -->
+                <center>
+                    <table class="table hoverable bordered" style="width:600px; background-color:inherit;border:groove;color:white;">
+                        <thead>
+                            <tr>
+                                <th id="f"> team </th>
+                                <th>Details</th>
+                                <th id="f">describtion </th>
+                               
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @for (int i = 0; i < ViewBag.numberRow; i++)
+                            {
+
+                                <tr>
+
+                                    <td >
+                                        <a style="color:#88a3b8" href="">@ViewBag.memberdetails[i]</a></td>
+
+                                        <td style="color:#88a3b8">@Html.ActionLink("More Details", "showteam", new { @id = @ViewBag.leader_id[i] })
+                                    </td>
+                                    <td>@ViewBag.projectdetails[i]</td>
+                                    @*<td class="e_d">
+                                        @using (Html.BeginForm("ShowRequsts", "Professor", FormMethod.Post, new { @id = "acceptform" }))
+                                        {
+                                            <input type="hidden" name="to" , value="@ViewBag.mailsto[i]" />
+                                            <input type="hidden" name="subject" value="about request..." />
+                                            <input type="hidden" name="body" value="you are accepted from @ViewBag.pro_name..." />
+                                           
+
+                                        }
+                                        @using (Html.BeginForm("ShowRequsts", "Professor", FormMethod.Post, new { @id = "rejectform" }))
+                                        {
+                                            <input type="hidden" name="to" , value="@ViewBag.mailsto[i]" />
+                                            <input type="hidden" name="subject" value="about request..." />
+                                            <input type="hidden" name="body" value="you are rejected from @ViewBag.pro_name..." />
+                                            
+
+                                        }
+                                    </td>*@
+                                </tr>
+
+
+                            }
+
+                        </tbody>
+
+                    </table>
+                </center>
+            </div> <!-- end col s12 -->
+        </div> <!-- end row -->
+    </div> <!-- end container -->
+</div>

@@ -1,0 +1,38 @@
+﻿
+@*@{
+    ViewBag.Title = "SelectProf";
+}
+
+<h2>SelectProf</h2>
+
+@using (Html.BeginForm("SelectProf", "student", FormMethod.Post, new { @id = "tform" }))
+{
+    <input type="hidden" name="to" , value="@ViewBag.email" />
+    <input type="hidden" name="subject" value="about request..." />
+    <input type="hidden" name="body" value="you are accepted from ..." />
+    <button id="accept" style="width:80px; margin-bottom:5px;text-align:center;color:black;">@Html.ActionLink("accept", "accept", new { @leader_id = @ViewBag.leader_id[i], @pro_id = @Session["userid"] })</button>
+
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#accept").click(function () {
+            myData = $("#tform").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Professor/ShowRequests",
+                data: myData,
+                success: function (response) {
+                    if (response.result == 1) {
+                        alert("sent successfully...");
+                    } else {
+                        alert("fail to sent...");
+                    }
+
+                }
+
+            })
+
+        })
+</script>*@

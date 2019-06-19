@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0f4ca93e6e844a51b2ead840e9aaa4bf" Name="Diagram1">
+        <EntityTypeShape EntityType="IA_DBModel.members" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="IA_DBModel.orders" Width="1.5" PointX="5.25" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="IA_DBModel.professors" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="IA_DBModel.projects" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="IA_DBModel.teamleaders" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="IA_DBModel.users" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <AssociationConnector Association="IA_DBModel.FK_members_teamleader" ManuallyRouted="false" />
+        <AssociationConnector Association="IA_DBModel.FK_orders_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="IA_DBModel.FK_pro_user" ManuallyRouted="false" />
+        <AssociationConnector Association="IA_DBModel.FK_projects" ManuallyRouted="false" />
+        <AssociationConnector Association="IA_DBModel.FK_user_teamleader" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="IA_DBModel.Department" Width="1.5" PointX="5.375" PointY="0.875" />
+        <AssociationConnector Association="IA_DBModel.FK_professors_ToTable" />
+        <EntityTypeShape EntityType="IA_DBModel.ROLE" Width="1.5" PointX="7.375" PointY="3.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

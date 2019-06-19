@@ -1,0 +1,317 @@
+﻿@model graduation_project_ideas_2.Models.users
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+
+<div class="page-inner" style="background-color:white;margin-top:-100px;">
+    <header id="gtco-header" class="gtco-cover" role="banner" style="background-image:url('../../images/bluegrey_by_bubba77.jpg');">
+        <div class="overlay">
+            <img style="margin-top:50px;margin-left:50px; width:700px;border-radius:360px;opacity:0.8" src="../../images/12.jpg" />
+        </div>
+        <div class="gtco-container" style="">
+            <div class="row">
+                <div class="col-md-12 col-md-offset-0 text-left">
+
+                    <div class="row row-mt-15em">
+                        <div class="col-md-7 mt-text animate-box" data-animate-effect="fadeInUp">
+                            @*<span class="intro-text-small">Welcome to</span>
+                                <h1>Graduation Project Ideas WebSite.</h1>*@
+
+                        </div>
+
+
+                        <div class="col-md-4 col-md-push-1 animate-box" data-animate-effect="fadeInRight">
+                            <div class="form-wrap">
+                                <div class="tab" style="margin-top:-150px;width:350px;display:none;color:white" ; id="register">
+                                    <ul class="tab-menu">
+                                        <li class="active gtco-first"><a href="#" data-tab="signup" style="width:350px;background-color:inherit;color:white;">Sign up</a></li>
+                                        @*<li class="gtco-second"><a href="#" data-tab="login"></a></li>*@
+                                    </ul>
+                                    <div class="tab-content" style="height:600px;margin-bottom:20px; background-color:inherit;color:white;">
+                                        @*   @using (Html.BeginForm(new { @id = "msform" }))*@
+
+                                        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { @id = "msform", enctype = "multipart/form-data" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                                            <div class="tab-content-inner active" data-content="signup">
+                                                <div class="row form-group">
+                                                    <div class="col-md-12">
+                                                        @*@Html.LabelFor(model => model.fullname, htmlAttributes: new { @class = "control-label col-md-3" })*@
+                                                        <div class="col-md-12">
+                                                            @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @class = "form-control", @Placeholder = "Full Name", @style = "color:white;" } })
+                                                            @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row form-group">
+                                                    <div class="col-md-12">
+                                                        @*@Html.LabelFor(model => model.username, htmlAttributes: new { @class = "control-label col-md-3" })*@
+                                                        <div class="col-md-12">
+                                                            @Html.EditorFor(model => model.username, new { htmlAttributes = new { @class = "form-control", @Placeholder = "User Name", @style = "color:white;" } })
+                                                            @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row form-group">
+                                                    <div class="col-md-12">
+                                                        @*@Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-3" })*@
+                                                        <div class="col-md-12">
+                                                            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @type = "email", @class = "form-control", @Placeholder = "Email Address", @style = "color:white;" } })
+                                                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row form-group">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-12">
+                                                            @Html.EditorFor(model => model.password, new { htmlAttributes = new { @type = "password", @class = "form-control", @Placeholder = "Password", @style = "color:white;" } })
+                                                            @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row form-group" style="color:white;">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-12">
+                                                            <select name="std_level" class="form-control , style = " color:white;">
+                                                                <option value="1">Level 1</option>
+                                                                <option value="2">Level 2</option>
+                                                                <option value="2">Level 3</option>
+                                                                <option value="4">Level 4</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row form-group">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-12">
+                                                            <input type="text" name="std_skills" placeholder="Skills" class="form-control" , style="color:white;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row form-group">
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-12">
+                                                            <input type="number" name="std_gpa" placeholder="GPA" class="form-control" , style="color:white;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row form-group">
+                                                    <div class="col-md-12">
+                                                        @*@Html.LabelFor(model => model.password, htmlAttributes: new { @class = "control-label col-md-3" })*@
+                                                        <div class="col-md-12">
+                                                            <input type="file" name="file" id="" class="form-control" , style="color:white;" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <input type="hidden" value="2" name="usertype" />
+                                                <input type="hidden" name="user_id" />
+                                                <div class="form-group">
+                                                    <div class=" col-md-12">
+                                                        <center><input type="submit" value="Sign Up" id="save" style="padding-left:30px;padding-right:30px; background-color:#88a3b8;color:white;" /></center>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+
+                                        }
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </header>
+    <div class="gtco-section border-bottom">
+        <div class="gtco-container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                    <h2>Best Teams</h2>
+                    <p>This Is From The Best Team In The Last Year In All The Department </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <a href="~/images/grad-group-photo-rev-750x430.jpg" class="fh5co-project-item image-popup">
+                        <figure>
+                            <div class="overlay"><i class="ti-plus"></i></div>
+                            <img src="~/images/grad-group-photo-rev-750x430.jpg" alt="Image" class="img-responsive">
+                        </figure>
+                        <div class="fh5co-text">
+                            <h2>Department IS</h2>
+                            <p>Make Application For Finding Lost People..</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <a href="~/images/grad-group-photo-rev-750x430.jpg" class="fh5co-project-item image-popup">
+                        <figure>
+                            <div class="overlay"><i class="ti-plus"></i></div>
+                            <img src="~/images/grad-group-photo-rev-750x430.jpg" alt="Image" class="img-responsive">
+                        </figure>
+                        <div class="fh5co-text">
+                            <h2>Department IT</h2>
+                            <p>Make Application For Finding Lost People..</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-6">
+                    <a href="~/images/grad-group-photo-rev-750x430.jpg" class="fh5co-project-item image-popup">
+                        <figure>
+                            <div class="overlay"><i class="ti-plus"></i></div>
+                            <img src="~/images/grad-group-photo-rev-750x430.jpg" alt="Image" class="img-responsive">
+                        </figure>
+                        <div class="fh5co-text">
+                            <h2>Department CS</h2>
+                            <p>Make Application For Finding Lost People..</p>
+                        </div>
+                    </a>
+                </div>
+                <div id="gtco-counter" class="gtco-section">
+                    <div class="gtco-container">
+                        <div class="row">
+                            <div class="col-md-8 col-md-offset-2 text-center gtco-heading animate-box">
+                                <h2>More Information</h2>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
+                                <div class="feature-center">
+                                    <!-- <span class="icon">
+                                        <i class="ti-settings"></i>
+                                    </span> -->
+                                    <span class="counter js-counter" data-from="0" data-to="22070" data-speed="5000" data-refresh-interval="50">1</span>
+                                    <span class="counter-label">STUDENT</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
+                                <div class="feature-center">
+                                    <!-- <span class="icon">
+                                        <i class="ti-face-smile"></i>
+                                    </span> -->
+                                    <span class="counter js-counter" data-from="0" data-to="97" data-speed="5000" data-refresh-interval="50">1</span>
+                                    <span class="counter-label">Professors</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
+                                <div class="feature-center">
+                                    <!-- <span class="icon">
+                                        <i class="ti-briefcase"></i>
+                                    </span> -->
+                                    <span class="counter js-counter" data-from="0" data-to="402" data-speed="5000" data-refresh-interval="50">1</span>
+                                    <span class="counter-label">Projects Done</span>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-sm-6 animate-box" data-animate-effect="fadeInLeft">
+                                <div class="feature-center">
+                                    <!-- <span class="icon">
+                                        <i class="ti-time"></i>
+                                    </span> -->
+                                    <span class="counter js-counter" data-from="0" data-to="212023" data-speed="5000" data-refresh-interval="50">1</span>
+                                    <span class="counter-label">Graduated Teams</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="gtco-products" style="background-image:url('../../images/bluegrey_by_bubba77.jpg');">
+                    <div class="gtco-container">
+                        <div class="row">
+                            <!-- <div class="col-md-8 col-md-offset-2 text-center gtco-heading">
+                                <h2>More Products</h2>
+                                <p>Dignissimos asperiores vitae velit veniam totam fuga molestias accusamus alias autem provident. Odit ab aliquam dolor eius.</p>
+                            </div> -->
+                        </div>
+                        <div class="row">
+                            <div class="owl-carousel owl-carousel-carousel">
+                                <div class="item">
+                                    <a href="#"><img width="350px" height="200px" src="~/images/Diplomci.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"></a>
+                                </div>
+                                <div class="item">
+                                    <a href="#"><img width="350px" height="200px" src="~/images/images.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"></a>
+                                </div>
+                                <div class="item">
+                                    <a href="#"><img width="350px" height="200px" src="~/images/graduation-liftedbydata_slide-271e09a2737b0ad490a15c1be7fb62c67837ed63-s900-c85.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"></a>
+                                </div>
+                                <div class="item">
+                                    <a href="#"><img width="350px" height="200px" src="~/images/GraduationHatsThrownIntoTheAir-1400x891.jpg" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="gototop js-top">
+            <a href="#" class="js-gotop"><i class="icon-arrow-up"></i></a>
+        </div>
+    </div>
+
+    <main style="overflow: hidden;background-color:inherit; ">
+        <div class="main-content">
+            <h2 style="text-align:center;"> Graduation project ideas website</h2>
+            <ul>
+                <li style="list-style: none;float: left;margin: 1%;left: 35%;position:relative"><a href="#"><img src="~/images/twit.png" style="width:50px;height:50px;" /><a href="#"></a></li>
+                <li style="list-style: none;float: left;margin: 1%;left: 35%;position:relative"><a href="#"><img src="~/images/Facebook-icon.png" style="width:50px;height:50px;" /></a></li>
+                <li style="list-style: none;float: left;margin: 1%;left: 35%;position:relative"><a href="#"><img src="~/images/in.png" style="width:50px;height:50px;" /></a></li>
+                <li style="list-style: none;float: left;margin: 1%;left: 35%;position:relative"><a href="#"><img src="~/images/you.png" style="width:50px;height:50px;" /></a></li>
+                <li style="list-style: none;float: left;margin: 1%;left: 35%;position:relative"><a href="#"><img src="~/images/pint.png" style="width:50px;height:50px;" /></a></li>
+            </ul>
+
+        </div>
+
+    </main>
+    <footer style="top: 135%;left: 36%;color: grey;background-color:inherit;text-align:center;height:50px;">
+        <p class="footer">&copy;Inter Graduation Systems B.V. 1999 - 2017</p>
+    </footer>
+
+</div>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#register").fadeToggle(4000);
+        $("#save").click(function () {
+            myData = $("#msform").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Home/Index",
+                data: myData,
+                success: function (response) {
+                    if (response.result == 0) {
+                                     
+                    } else {
+                        alert("This username is already exists or some validition error...");
+                    }
+
+                }
+
+            })
+
+        })
+    });
+</script>

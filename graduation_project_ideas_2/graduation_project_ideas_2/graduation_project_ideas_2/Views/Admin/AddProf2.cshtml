@@ -1,0 +1,83 @@
+﻿@model graduation_project_ideas_2.Models.users
+
+@{
+    ViewBag.Title = "AddProf2";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("Addprof2", "Admin",FormMethod.Post, new { @id="msform"}))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <center>
+        <div class="row form-group" style="background-color:#758c9e;width:350px;padding-bottom:50px;border-radius:10px;margin-top:40px;">
+            <h4 style="color:white;">Add Professor</h4>
+            <div class="col-md-12">
+                <div id="success" style="color:cornflowerblue;display:none;">Added Professor Successfully...</div>
+                <div id="fail" style="color:red;display:none;">Added Professor Failed...</div>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @placeholder = "Enter Full Name...", @style = "margin-bottom:15px;padding-right:50px;border-radius:5px;width:200px;height:40px;color:black;" } })
+                   <br/>
+                    @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.username, new { htmlAttributes = new { @placeholder = "Enter Username...", @style = "margin-bottom:15px;padding-right:50px;border-radius:5px;width:200px;height:40px;color:black;" } })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.username, "", new { @class = "text-danger" })
+
+                </div>
+
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.email, new { htmlAttributes = new { @type = "email", @placeholder = "Enter Email...", @style = "margin-bottom:15px;padding-right:50px;border-radius:5px;width:200px;height:40px;color:black;" } })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.password, new { htmlAttributes = new { @type = "password", @placeholder = "Enter Password...", @style = "margin-bottom:15px;padding-right:50px;border-radius:5px;width:200px;height:40px;color:black;" } })
+                    <br />
+                    @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                   
+                </div>
+
+                <div>
+                    <button type="submit" id="save" value="Add Professor" style="background-color:#88a3b8;color:white;padding:5px;width:200px;border-radius:10px;margin-top:10px;">Save</button>
+                </div>
+
+            </div>
+        </div>
+    </center>
+}
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#save").click(function () {
+            myData = $("#msform").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Admin/AddProf2",
+                data: myData,
+                success: function (response) {
+                    if (response.result == 0) {
+                        alert("Added Professor Successfully...");
+
+                    } else{
+                        alert("This username is already exists or some validation error...");
+                    }
+
+                }
+
+            })
+
+        })
+
+
+    });
+
+
+</script>

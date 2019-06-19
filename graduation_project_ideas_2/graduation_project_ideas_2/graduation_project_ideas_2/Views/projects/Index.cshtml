@@ -1,0 +1,52 @@
+﻿@model IEnumerable<graduation_project_ideas_2.Models.projects>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<h2>Index</h2>
+<h1>Welcome : @ViewBag.fullname</h1>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.proj_name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proj_desc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.proj_tools)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.teamleaders.std_skills)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.proj_name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proj_desc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.proj_tools)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.teamleaders.std_skills)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,60 @@
+/* Required layout stuff */
+
+.table-scroll {
+    margin-left:200px;
+    width:1000px;
+}
+
+.table-scroll .thead-col {
+  position: absolute;
+  margin-top: 3rem;
+  z-index: 998;
+}
+.table-scroll .thead-row {
+  position: absolute;
+  margin-left: 9rem;
+  z-index: 999;
+}
+.table-scroll tbody {
+  display: block;
+  margin-left: 9rem;
+  margin-top: 3rem;
+}
+.table-scroll th, .table-scroll td {
+  min-width: 20rem;
+  height: 3rem;
+  box-sizing: border-box;
+}
+
+/* The looky good stuff */
+td, th {
+  padding: 0.75em 1.5em;
+  text-align: center;
+}
+
+th {
+  font-weight: bold;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.thead-row {
+  background-color: #31bc86;
+}
+
+.thead-col {
+  background-color: #2ea879;
+}
+
+tbody tr {
+  background-color: #fff;
+  transition: all .125s ease-in-out;
+}
+tbody tr:nth-child(2n-1) {
+  background-color: #f5f5f5;
+}
+tbody tr:hover {
+  background-color: rgba(129, 208, 177, 0.3);
+}
+
+

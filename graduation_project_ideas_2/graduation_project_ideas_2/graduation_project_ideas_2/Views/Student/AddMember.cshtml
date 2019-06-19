@@ -1,0 +1,78 @@
+﻿@model graduation_project_ideas_2.Models.members
+@{
+    ViewBag.Title = "AddMember";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<div>
+
+    @using (Html.BeginForm("AddMember", "Student", FormMethod.Post, new { @id = "msform", @style = "height:600px;", enctype = "multipart/form-data" }))
+    {
+        <ul id="progressbar" style="width:480px;text-align:center">
+            <li class="active">Team Member</li>
+            <li>Project Idea</li>
+            <li>Professors</li>
+        </ul>
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <fieldset style="background-color:inherit;">
+            <h2 class="fs-title">Team Members</h2>
+            <div id="success" style="display:none">Added Member Successfully...</div>
+            <div id="fail" style="display:none">Added Member Fail...</div>
+            @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @name = "fullname", @placeholder = "Full Name...", @required = "required" } })
+            @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @name = "email", @placeholder = "Email...", @required = "required" } })
+            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.mem_level, new { htmlAttributes = new { @name = "mem_level", @type = "number", @placeholder = "Level...", @required = "required" } })
+            @Html.ValidationMessageFor(model => model.mem_level, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.mem_gpa, new { htmlAttributes = new { @type = "text", @name = "mem_gpa", @placeholder = "GPA...", @required = "required" } })
+            @Html.ValidationMessageFor(model => model.mem_gpa, "", new { @class = "text-danger" })
+            @Html.EditorFor(model => model.mem_skills, new { htmlAttributes = new { @name = "mem_skills", @placeholder = "Write skills...", @required = "required" } })
+            @Html.ValidationMessageFor(model => model.mem_skills, "", new { @class = "text-danger" })
+            @*@Html.EditorFor(model => model.mem_trans, new { htmlAttributes = new { @type = "file", @name = "file", @required = "required" } })*@
+            <input type="file" name="file" id="" class="form-control" required/>
+            @*@Html.ValidationMessageFor(model => model.mem_trans, "", new { @class = "text-danger" })*@
+            <input type="hidden" value="@Session["userid"]" name="Id" />
+            <button type="submit" id="save" class="addNewMember" value="Add Member" name="addMember" style="width:150px;padding:10px;background-color:#88a3b8;">AddMember</button>
+
+            <a href="/Student/AddProject" style="background-color:#88a3b8;color:white;padding:9px 40px;font-size:15px;border-radius:10px;margin-left:13px;">Next</a>
+
+        </fieldset>
+
+    }
+
+
+    <!-- multistep form -->
+    <!-- progressbar -->
+    <!-- fieldsets -->
+</div><script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#save").click(function () {
+            myData = $("#msform").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Student/AddMember",
+                data: myData,
+                success: function (response) {
+                    if (response.result == 0) {
+                        
+                    } else {
+                        alert("Added successfully...");
+                    }
+
+                }
+
+            })
+
+        })
+
+
+    });
+
+
+</script>
+

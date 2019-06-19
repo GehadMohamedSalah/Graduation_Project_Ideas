@@ -1,0 +1,55 @@
+﻿@model graduation_project_ideas_2.Models.users
+@{
+    ViewBag.Title = "AddProf";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div>
+    <section id="form" style="height:500px;">
+        <div id="toggle-forms">
+
+        </div>
+        @using (Html.BeginForm(new { @class = "col s12" }))
+        {
+            @Html.AntiForgeryToken()
+            <div class="row center-align">
+                <h4 class="white-text">Add</h4>
+            </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="input-field">
+                    <input id="email" type="number" class="validate">
+                    <label for="email">User NAme</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <input id="password" type="password" class="validate">
+                    <label for="password">Password</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field">
+                    <input id="password" type="password" class="validate">
+                    <label for="password">Re-Password</label>
+                </div>
+            </div>
+            <div class="row center-align">
+                <button class="btn waves-effect waves-light">
+                    Register
+                </button>
+            </div>
+            <ul class="animate">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        }
+        </section>
+
+</div>
+

@@ -1,0 +1,135 @@
+﻿@model graduation_project_ideas_2.Models.DeptProf
+@{
+    ViewBag.Title = "AddMember";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+
+<div>
+    @using (Html.BeginForm("AddProject", "Student", FormMethod.Post, new { @id = "msform", @style = "height:600px;", enctype = "multipart/form-data" }))
+    {
+    <input type="hidden" value="@Session[" userid"]" name="Id" />
+    <ul id="progressbar" style="width:480px;text-align:center">
+        <li class="active">Team Member</li>
+        <li>Project Idea</li>
+        <li>Professors</li>
+    </ul>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <fieldset style="background-color:inherit;">
+        <center>
+            <h2 class="fs-title">Choose Professors</h2>
+            <br />
+            <div id="alert-error0" style="color:red;border-radius:10px;display:none;">You Can not Select More Than Three Professors...</div>
+            <div id="alert-success" style="color:#88a3b8;border-radius:10px;display:none;">Resust Sent Successfully...</div>
+            <div id="alert-error-1" style="color:red;border-radius:10px;display:none;">You Can not Send To Same Professor...</div>
+
+            <div style="margin-left:-10px;margin-bottom:20px; margin-top:3px;">
+                @Html.DropDownListFor(model => model.dept_id, new SelectList(Model.departments, "Id", "name"), "--Select Department--", new { @class = "form-control", @style = "color:black;background-color:white;width:200px;" })
+                @*@Html.DropDownList("dept_id", EnumHelper.GetSelectList(typeof(graduation_project_ideas_2.App_Code.DeptNameMapping)), "Select Department", new { @style = "padding:5px;width:200px;", @id = "dept" })*@
+            </div>
+
+            <div style="margin-left:-8px;margin-bottom:20px;">
+                @Html.DropDownListFor(model => model.pro_user, new List<SelectListItem>
+             (), "--Select Professor--", new { @class = "form-control", @style = "color:black;background-color:white;width:200px;" })
+
+                @*<select style="padding:5px;width:200px;">
+            @for (int i = 0; i < ViewBag.counter; i++)
+            {
+            <option>@ViewBag.names[i]</option>
+            }
+        </select>*@
+
+
+                @*me*@
+        @using (Html.BeginForm("Sendmail", "Student", FormMethod.Post, new { @id = "acceptform" }))
+             {
+                  <input type="hidden" name="to" , value="@ViewBag.mailsto" />
+                  <input type="hidden" name="subject" value="about request..." />
+                  <input type="hidden" name="body" value="you are accepted from @ViewBag.pro_name..." />
+                  @*<button id="accept" style="width:80px; margin-bottom:5px;text-align:center;color:black;">@Html.ActionLink("accept", "accept", new { @leader_id = @ViewBag.leader_id[i], @pro_id = @Session["userid"] })</button>*@
+
+              }
+                @*end me*@
+
+
+
+            </div>
+
+
+            <button type="submit" name="submit" id="save" class="submit action-button" value="Submit" style="width:100px;padding:6px;background-color:#88a3b8;">Submit</button>
+        </center>
+    </fieldset>
+
+    }
+
+
+
+
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //dept_id
+        $("#dept_id").change(function () {
+            id = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "/Student/SelectProf/" + id,
+                success: function (response) {
+                    $("#pro_user").empty();
+                    $("#pro_user").append("<option>--Select Professor--</option>");
+                    response.forEach(function (entry) {
+                        $("#pro_user").append("<option value=" + entry.Id + ">" + entry.fullname + "</option>");
+                    });
+                }
+
+            })
+            $(this).hide();
+
+        })
+
+
+        //save
+        $("#save").click(function () {
+            myData = $("#msform").serialize();
+            $.ajax({
+                type: "POST",
+                url: "/Student/SelectDept",
+                data: myData,
+                success: function (response) {
+                    if (response.result == 1) {
+                        $("#alert-error0").hide();
+                        $("#alert-error-1").hide();
+                        $("#alert-success").show();
+                        //$("#alert-success").slideToggle(2000, function () {
+                        //    $("#alert-success").fadeToggle(500)
+                        //});
+                    } else if (response.result == 0) {
+                        $("#alert-success").hide();
+                        $("#alert-error-1").hide();
+                        $("#alert-error0").show();
+                        //$("#alert-error0").slideToggle(2000, function () {
+                        //    $("#alert-error0").fadeToggle(500)
+                        //});
+                    } else {
+                        $("#alert-success").hide();
+                        $("#alert-error0").hide();
+                        $("#alert-error-1").show();
+                        //$("#alert-error-1").slideToggle(2000, function () {
+                        //    $("#alert-error-1").fadeToggle(500)
+                        //});
+                    }
+
+                }
+
+            })
+
+        })
+
+
+    });
+
+
+</script>

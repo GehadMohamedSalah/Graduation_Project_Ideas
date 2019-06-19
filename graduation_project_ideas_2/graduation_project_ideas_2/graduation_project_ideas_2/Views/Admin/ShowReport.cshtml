@@ -1,0 +1,36 @@
+﻿@model graduation_project_ideas_2.Models.orders
+@{
+    ViewBag.Title = "ShowReport";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div>
+
+    <div class="table-scroll" >
+        <ceneter>
+            <table style="margin-left:240px;margin-top:40px;">
+                <thead class="thead-row" style="background-color:inherit;">
+                    <tr style="border-radius:10px;background-color:inherit;">
+                        <th style="padding:3px;">profesor name</th>
+                        <th style="padding:3px;">number of teams</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+
+                    @for (int i = 0; i < ViewBag.countprofs; i++)
+            {
+                <tr>
+                    <td>@ViewBag.prof_name[i]</td>
+                    <td>@ViewBag.count_orders[i]</td>
+                </tr>
+    }
+                </tbody>
+
+            </table>
+        </ceneter>
+    </div>
+
+</div>
+

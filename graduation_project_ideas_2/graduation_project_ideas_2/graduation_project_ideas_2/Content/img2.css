@@ -1,0 +1,11 @@
+﻿body {
+    /*background-image: url('../images/gra.jpg');*/
+    /*background-image: url('../images/gr2.jpg');*/
+    /*background-image: url('../images/dd.jpg');
+    background-image: url('../images/n.jpg');*/
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #0D277F;
+    height: 100%;
+}

@@ -1,0 +1,536 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IA_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="members">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="mem_gpa" Type="float" />
+          <Property Name="mem_skills" Type="nvarchar(max)" />
+          <Property Name="mem_trans" Type="nvarchar" MaxLength="255" />
+          <Property Name="mem_level" Type="nvarchar" MaxLength="255" />
+          <Property Name="teamleader_id" Type="int" />
+          <Property Name="fullname" Type="nvarchar" MaxLength="255" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="teamleader_id" Type="int" />
+          <Property Name="project_id" Type="int" />
+          <Property Name="professor_id" Type="int" />
+          <Property Name="status" Type="int" />
+        </EntityType>
+        <EntityType Name="professors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="exp_year" Type="int" />
+          <Property Name="pro_desc" Type="nvarchar(max)" />
+          <Property Name="pro_depart" Type="nvarchar" MaxLength="50" />
+          <Property Name="pro_user" Type="int" />
+          <Property Name="dept_id" Type="int" />
+        </EntityType>
+        <EntityType Name="projects">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="proj_name" Type="nvarchar(max)" />
+          <Property Name="proj_desc" Type="nvarchar(max)" />
+          <Property Name="proj_tools" Type="nvarchar(max)" />
+          <Property Name="teamleader_id" Type="int" />
+        </EntityType>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="50" />
+          <Property Name="type" Type="int" />
+        </EntityType>
+        <EntityType Name="teamleaders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="std_gpa" Type="float" />
+          <Property Name="std_skills" Type="nvarchar(max)" />
+          <Property Name="std_trans" Type="nvarchar" MaxLength="255" />
+          <Property Name="std_level" Type="nvarchar" MaxLength="255" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fullname" Type="nvarchar" MaxLength="255" />
+          <Property Name="username" Type="nvarchar" MaxLength="255" />
+          <Property Name="email" Type="nvarchar" MaxLength="255" />
+          <Property Name="password" Type="nvarchar" MaxLength="255" />
+          <Property Name="usertype" Type="int" />
+        </EntityType>
+        <Association Name="FK_members_teamleader">
+          <End Role="users" Type="Self.users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="members" Type="Self.members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="members">
+              <PropertyRef Name="teamleader_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_ToTable">
+          <End Role="professors" Type="Self.professors" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="professors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="professor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pro_user">
+          <End Role="users" Type="Self.users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="professors" Type="Self.professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="professors">
+              <PropertyRef Name="pro_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_professors_ToTable">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="professors" Type="Self.professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="professors">
+              <PropertyRef Name="dept_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_projects">
+          <End Role="users" Type="Self.users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="projects" Type="Self.projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="projects">
+              <PropertyRef Name="teamleader_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_teamleader">
+          <End Role="users" Type="Self.users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="teamleaders" Type="Self.teamleaders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="teamleaders">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IA_DBModelStoreContainer">
+          <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="members" EntityType="Self.members" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="professors" EntityType="Self.professors" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="projects" EntityType="Self.projects" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="ROLE" EntityType="Self.ROLE" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="teamleaders" EntityType="Self.teamleaders" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <AssociationSet Name="FK_members_teamleader" Association="Self.FK_members_teamleader">
+            <End Role="users" EntitySet="users" />
+            <End Role="members" EntitySet="members" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_ToTable" Association="Self.FK_orders_ToTable">
+            <End Role="professors" EntitySet="professors" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pro_user" Association="Self.FK_pro_user">
+            <End Role="users" EntitySet="users" />
+            <End Role="professors" EntitySet="professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_professors_ToTable" Association="Self.FK_professors_ToTable">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="professors" EntitySet="professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_projects" Association="Self.FK_projects">
+            <End Role="users" EntitySet="users" />
+            <End Role="projects" EntitySet="projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_teamleader" Association="Self.FK_user_teamleader">
+            <End Role="users" EntitySet="users" />
+            <End Role="teamleaders" EntitySet="teamleaders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IA_DBModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
+        <EntityType Name="members">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="mem_gpa" Type="Double" />
+          <Property Name="mem_skills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="mem_trans" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="mem_level" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="teamleader_id" Type="Int32" />
+          <Property Name="fullname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="users" Relationship="Self.FK_members_teamleader" FromRole="members" ToRole="users" />
+        </EntityType>
+        <EntityType Name="orders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="teamleader_id" Type="Int32" />
+          <Property Name="project_id" Type="Int32" />
+          <Property Name="professor_id" Type="Int32" />
+          <Property Name="status" Type="Int32" />
+          <NavigationProperty Name="professors" Relationship="Self.FK_orders_ToTable" FromRole="orders" ToRole="professors" />
+        </EntityType>
+        <EntityType Name="professors">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="exp_year" Type="Int32" />
+          <Property Name="pro_desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="pro_depart" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pro_user" Type="Int32" />
+          <NavigationProperty Name="orders" Relationship="Self.FK_orders_ToTable" FromRole="professors" ToRole="orders" />
+          <NavigationProperty Name="users" Relationship="Self.FK_pro_user" FromRole="professors" ToRole="users" />
+          <Property Name="dept_id" Type="Int32" />
+          <NavigationProperty Name="Department" Relationship="IA_DBModel.FK_professors_ToTable" FromRole="professors" ToRole="Department" />
+        </EntityType>
+        <EntityType Name="projects">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="proj_name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="proj_desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="proj_tools" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="teamleader_id" Type="Int32" />
+          <NavigationProperty Name="users" Relationship="Self.FK_projects" FromRole="projects" ToRole="users" />
+        </EntityType>
+        <EntityType Name="teamleaders">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="std_gpa" Type="Double" />
+          <Property Name="std_skills" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="std_trans" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="std_level" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="users" Relationship="Self.FK_user_teamleader" FromRole="teamleaders" ToRole="users" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fullname" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="usertype" Type="Int32" />
+          <NavigationProperty Name="members" Relationship="Self.FK_members_teamleader" FromRole="users" ToRole="members" />
+          <NavigationProperty Name="professors" Relationship="Self.FK_pro_user" FromRole="users" ToRole="professors" />
+          <NavigationProperty Name="projects" Relationship="Self.FK_projects" FromRole="users" ToRole="projects" />
+          <NavigationProperty Name="teamleaders" Relationship="Self.FK_user_teamleader" FromRole="users" ToRole="teamleaders" />
+        </EntityType>
+        <Association Name="FK_members_teamleader">
+          <End Role="users" Type="Self.users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="members" Type="Self.members" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="members">
+              <PropertyRef Name="teamleader_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_orders_ToTable">
+          <End Role="professors" Type="Self.professors" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="professors">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="orders">
+              <PropertyRef Name="professor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_pro_user">
+          <End Role="users" Type="Self.users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="professors" Type="Self.professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="professors">
+              <PropertyRef Name="pro_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_projects">
+          <End Role="users" Type="Self.users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="projects" Type="Self.projects" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="projects">
+              <PropertyRef Name="teamleader_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_user_teamleader">
+          <End Role="users" Type="Self.users" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="teamleaders" Type="Self.teamleaders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="teamleaders">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="IA_DBEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="members" EntityType="Self.members" />
+          <EntitySet Name="orders" EntityType="Self.orders" />
+          <EntitySet Name="professors" EntityType="Self.professors" />
+          <EntitySet Name="projects" EntityType="Self.projects" />
+          <EntitySet Name="teamleaders" EntityType="Self.teamleaders" />
+          <EntitySet Name="users" EntityType="Self.users" />
+          <AssociationSet Name="FK_members_teamleader" Association="Self.FK_members_teamleader">
+            <End Role="users" EntitySet="users" />
+            <End Role="members" EntitySet="members" />
+          </AssociationSet>
+          <AssociationSet Name="FK_orders_ToTable" Association="Self.FK_orders_ToTable">
+            <End Role="professors" EntitySet="professors" />
+            <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_pro_user" Association="Self.FK_pro_user">
+            <End Role="users" EntitySet="users" />
+            <End Role="professors" EntitySet="professors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_projects" Association="Self.FK_projects">
+            <End Role="users" EntitySet="users" />
+            <End Role="projects" EntitySet="projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_user_teamleader" Association="Self.FK_user_teamleader">
+            <End Role="users" EntitySet="users" />
+            <End Role="teamleaders" EntitySet="teamleaders" />
+          </AssociationSet>
+          <EntitySet Name="Department" EntityType="IA_DBModel.Department" />
+          <AssociationSet Name="FK_professors_ToTable" Association="IA_DBModel.FK_professors_ToTable">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="professors" EntitySet="professors" />
+          </AssociationSet>
+          <EntitySet Name="ROLE" EntityType="IA_DBModel.ROLE" />
+        </EntityContainer>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="professors" Relationship="IA_DBModel.FK_professors_ToTable" FromRole="Department" ToRole="professors" />
+        </EntityType>
+        <Association Name="FK_professors_ToTable">
+          <End Type="IA_DBModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="IA_DBModel.professors" Role="professors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="professors">
+              <PropertyRef Name="dept_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="ROLE">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="type" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="IA_DBModelStoreContainer" CdmEntityContainer="IA_DBEntities3">
+          <EntitySetMapping Name="members">
+            <EntityTypeMapping TypeName="IA_DBModel.members">
+              <MappingFragment StoreEntitySet="members">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="mem_gpa" ColumnName="mem_gpa" />
+                <ScalarProperty Name="mem_skills" ColumnName="mem_skills" />
+                <ScalarProperty Name="mem_trans" ColumnName="mem_trans" />
+                <ScalarProperty Name="mem_level" ColumnName="mem_level" />
+                <ScalarProperty Name="teamleader_id" ColumnName="teamleader_id" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="orders">
+            <EntityTypeMapping TypeName="IA_DBModel.orders">
+              <MappingFragment StoreEntitySet="orders">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="teamleader_id" ColumnName="teamleader_id" />
+                <ScalarProperty Name="project_id" ColumnName="project_id" />
+                <ScalarProperty Name="professor_id" ColumnName="professor_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="professors">
+            <EntityTypeMapping TypeName="IA_DBModel.professors">
+              <MappingFragment StoreEntitySet="professors">
+                <ScalarProperty Name="dept_id" ColumnName="dept_id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="exp_year" ColumnName="exp_year" />
+                <ScalarProperty Name="pro_desc" ColumnName="pro_desc" />
+                <ScalarProperty Name="pro_depart" ColumnName="pro_depart" />
+                <ScalarProperty Name="pro_user" ColumnName="pro_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="projects">
+            <EntityTypeMapping TypeName="IA_DBModel.projects">
+              <MappingFragment StoreEntitySet="projects">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="proj_name" ColumnName="proj_name" />
+                <ScalarProperty Name="proj_desc" ColumnName="proj_desc" />
+                <ScalarProperty Name="proj_tools" ColumnName="proj_tools" />
+                <ScalarProperty Name="teamleader_id" ColumnName="teamleader_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="teamleaders">
+            <EntityTypeMapping TypeName="IA_DBModel.teamleaders">
+              <MappingFragment StoreEntitySet="teamleaders">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="std_gpa" ColumnName="std_gpa" />
+                <ScalarProperty Name="std_skills" ColumnName="std_skills" />
+                <ScalarProperty Name="std_trans" ColumnName="std_trans" />
+                <ScalarProperty Name="std_level" ColumnName="std_level" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="IA_DBModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="fullname" ColumnName="fullname" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="usertype" ColumnName="usertype" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Department">
+            <EntityTypeMapping TypeName="IA_DBModel.Department">
+              <MappingFragment StoreEntitySet="Department">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ROLE">
+            <EntityTypeMapping TypeName="IA_DBModel.ROLE">
+              <MappingFragment StoreEntitySet="ROLE">
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams />
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,46 @@
+﻿@model graduation_project_ideas_2.Models.professors
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <!-- table that shows volunteer record list -->
+                <table class="table hoverable bordered" style=" background-color:#2c3e50; border-radius:20px;">
+                    <thead>
+                        <tr style="color:white;">
+                            <th id="f">Name	</th>
+                            <th id="f">Email</th>
+                            <th id="f">experience year</th>
+                            <th id="f">descrebtion</th>
+                            <th id="f">department</th>
+                        </tr>
+                    </thead>
+                 
+                    <tbody>
+                    
+                        @for (int i = 0 ; i < ViewBag.numberRow  ; i++ )
+                        {
+                        <tr>
+                            <td>@ViewBag.name[i]</td>
+                            <td class="breakEmail">@ViewBag.name2[i]</td>
+                            <td>@ViewBag.professor2[i].exp_year</td>
+                            <td>@ViewBag.professor2[i].pro_desc</td>
+                            <td>@ViewBag.professor2[i].pro_depart</td>
+                        </tr>
+}
+                    </tbody>
+                </table>
+                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"></dir-pagination-controls>
+            </div> <!-- end col s12 -->
+        </div> <!-- end row -->
+    </div> <!-- end container -->
+
+
+</div>
+
+
+

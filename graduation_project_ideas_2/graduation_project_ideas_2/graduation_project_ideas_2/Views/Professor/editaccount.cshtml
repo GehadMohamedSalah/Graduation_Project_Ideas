@@ -1,0 +1,132 @@
+﻿@model graduation_project_ideas_2.Models.professors
+
+@{
+    ViewBag.Title = "editmem";
+    Layout = "~/Views/Shared/_ProfessorLayout.cshtml";
+}
+
+<center>
+    <div>
+
+        <section>
+
+            <h1 name="fullname">
+              welcom @Model.users.fullname
+            </h1>
+        </section>
+        <div class="table_of_books" style="width:740px;border:groove;background-color:inherit">
+            <table>
+                <tr>
+                    <td>
+                        <div style="color:white;">Full Name</div>
+                        <div style="color:white;">Email</div>
+                        <div style="color:white;">Username</div>
+                    </td>
+                    <td style=" color:white">
+                        <div class="title">@Html.DisplayFor(model => model.users.fullname)</div>
+                        <div><span class="book_year">@Html.DisplayFor(model => model.users.email)</span><span class="year_format"></span></div>
+                        <div class="book_author">@Html.DisplayFor(model => model.users.username)</div>
+                    </td>
+                    <td>
+                        <p><button id="edit" style="border-radius:10px; height:40px; background-color:#88a3b8">Edit</button></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="edition_field" style="display:none; width:740px;border:groove;background-color:inherit">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <table >
+
+                    <tr>
+                        <td><label style="color:white"for="fullname">Full Name</label></td>
+                        <td>
+                            @Html.EditorFor(model => model.users.fullname, new { HtmlAttributes = new { @id = "fullname", @name = "fullname", @style = "width:500px; border-radius:10px; border:none;" } })
+                            @Html.ValidationMessageFor(model => model.users.fullname, "", new { @class = "text-danger" })
+                        </td>
+                        @*<td><input type="text" id="fullname" name="fullname" required value=" @Html.DisplayFor(model => model.fullname )" style="width:500px; border-radius:10px; border:none;" /></td>*@
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label style="color:white"for="username">Username</label>
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.users.username, new { HtmlAttributes = new { @id = "username", @name = "username", @style = "width:500px; border-radius:10px; border:none;" } })
+                            @Html.ValidationMessageFor(model => model.users.username, "", new { @class = "text-danger" })
+                            @* <input type="text" id="username" name="username" required value="@Html.DisplayFor(model => model.username)" style="width:500px; border-radius:10px;" />*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label style="color:white"for="email">Email</label>
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.users.email, new { HtmlAttributes = new { @id = "email", @name = "email", @type = "email", @style = "width:500px; border-radius:10px; border:none;" } })
+                            @Html.ValidationMessageFor(model => model.users.email, "", new { @class = "text-danger" })
+                            @*<input type="text" id="email" name="email" required value="@Html.DisplayFor(model => model.email)" style="width:500px; border-radius:10px;" />*@
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label style="color:white"for="password">Password</label>
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.users.password, new { HtmlAttributes = new { @id = "password", @name = "password", @type = "password", @style = "width:500px; border-radius:10px; border:none;" } })
+                            @Html.ValidationMessageFor(model => model.users.password, "", new { @class = "text-danger" })
+                            @*<input type="text" id="password" name="password" required value="@Html.DisplayFor(model => model.password)" style="width:500px; border-radius:10px;" />*@
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label style="color:white"for="password">Experience Years</label>
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.exp_year, new { HtmlAttributes = new { @id = "exp_year", @name = "exp_year", @type = "number", @style = "width:500px; border-radius:10px; border:none;" } })
+                            @Html.ValidationMessageFor(model => model.exp_year, "", new { @class = "text-danger" })
+                            @*<input type="text" id="password" name="password" required value="@Html.DisplayFor(model => model.password)" style="width:500px; border-radius:10px;" />*@
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label style="color:white"for="password">Short Describtion</label>
+                        </td>
+                        <td>
+                            @Html.EditorFor(model => model.pro_desc, new { HtmlAttributes = new { @id = "pro_desc", @name = "pro_desc", @style = "width:500px; border-radius:10px; border:none;" } })
+                            @Html.ValidationMessageFor(model => model.pro_desc, "", new { @class = "text-danger" })
+                            @*<input type="text" id="password" name="password" required value="@Html.DisplayFor(model => model.password)" style="width:500px; border-radius:10px;" />*@
+                        </td>
+
+                    </tr>
+
+
+                </table>
+                <input type="hidden" value="@Session["userid"]" name="Id" />
+                <input type="submit" value="Edit" style=" width:200px; border-radius:10px; background-color:#88a3b8" />
+
+            }
+
+
+        </div>
+
+    </div>
+</center>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#edit").click(function () {
+            $("#edition_field").slideToggle(1000);
+        })
+    });
+
+</script>
+

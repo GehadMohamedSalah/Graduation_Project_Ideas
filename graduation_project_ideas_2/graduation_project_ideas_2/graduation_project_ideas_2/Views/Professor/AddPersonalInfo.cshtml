@@ -1,0 +1,74 @@
+﻿@model graduation_project_ideas_2.Models.professors
+
+@{
+    ViewBag.Title = "AddPersonalInfo";
+    Layout = "~/Views/Shared/_ProfessorLayout.cshtml";
+}
+
+<center>
+    <div style="background-color:inherit;border:groove;padding:30px;margin-top:70px;border-radius:10px;width:300px;">
+        <h3 style="color:white">Personal Information</h3>
+        <p style="color:cornflowerblue;font-size:20px;font-weight:bold;display:none" id="success">Saved...</p>
+        <p style="color:cornflowerblue;font-size:20px;font-weight:bold;display:none" id="fail">Data already exits...</p>
+        @using (Html.BeginForm("AddPersonalInfo", "Professor",FormMethod.Post ,new { @id = "msform" }))
+        {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.exp_year, new { htmlAttributes = new { @placeholder = "Experience years...", @style = "width:250px;height:30px;border-radius:5px;display:block;margin-top:15px;", @type = "number" } })
+        @Html.ValidationMessageFor(model => model.exp_year, "", new { @class = "text-danger" })
+        @Html.EditorFor(model => model.pro_desc, new { htmlAttributes = new { @placeholder = "Short Describtion about you...", @style = "width:250px;height:80px;border-radius:5px;display:block;margin-top:15px;" } })
+        @Html.ValidationMessageFor(model => model.pro_desc, "", new { @class = "text-danger" })
+        @Html.DropDownList("dept_id", EnumHelper.GetSelectList(typeof(graduation_project_ideas_2.App_Code.DeptNameMapping)), "Select Dept Name", new { @style = "width:250px;height:30px;border-radius:5px;display:block;margin-top:15px;" })
+        @Html.ValidationMessageFor(model => model.dept_id, "", new { @class = "text-danger" })
+        <input type="hidden" value="@Session["userid"]" />
+        <input type="submit" id="save" value="Save" style="width:100px;height:40px;background-color:#88a3b8;color:white;border-radius:5px;display:block;margin-top:15px;" />
+
+
+}
+
+    </div>
+</center>
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#save").click(function () {
+            if ($("#msform").valid()) {
+                myData = $("#msform").serialize();
+                $.ajax({
+                    type: "POST",
+                    url: "/Professor/AddPersonalInfo",
+                    //dataType: "json",
+                    data: myData,
+                    success: function (response) {
+                        if (response.result == 0) {
+                            alert("Addedd Successfully...");
+                        } else {
+                            alert("You have already profil or some validation is error...");
+                        }
+
+                    }
+
+                })
+            }
+
+
+        })
+
+
+    });
+
+
+</script>
+
+
+
+
+
+
+

@@ -1,0 +1,107 @@
+﻿@model graduation_project_ideas_2.Models.users
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<div>
+    <input type="hidden" value="@Session["UserID"]" name="teamleader_id" />
+    @if (@ViewBag.project == null)
+    {
+
+        <ul class="cards" style="width:400px;height:400px;">
+            <li class="card" style="width:400px;height:200px;background-color:#88a3b8;color:white;">
+                <h3 style="color:white;font-size:20px;font-weight:bold">Idea Name</h3>
+                <p></p>
+            </li>
+            <li class="card" style="width:400px;height:200px;background-color:#88a3b8;color:white;">
+                <h3 style="color:white;font-size:20px;font-weight:bold">Descrebtion</h3>
+                <p></p>
+            </li>
+            <li class="card" style="width:400px;height:200px;background-color:#88a3b8;color:white;">
+                <h3 style="color:white;font-size:20px;font-weight:bold">Tools </h3>
+                <p></p>
+            </li>
+        </ul>
+
+    }
+    else
+    {
+
+        <ul class="cards" style="width:400px;height:400px;">
+            <li class="card" style="width:400px;height:200px;background-color:#88a3b8;color:white;">
+                <h3 style="color:white;font-size:20px;font-weight:bold">Idea Name</h3>
+                <p>@ViewBag.project.proj_name</p>
+            </li>
+            <li class="card" style="width:400px;height:200px;background-color:#88a3b8;color:white;">
+                <h3 style="color:white;font-size:20px;font-weight:bold">Descrebtion</h3>
+                <p>@ViewBag.project.proj_desc</p>
+            </li>
+            <li class="card" style="width:400px;height:200px;background-color:#88a3b8;color:white;">
+                <h3 style="color:white;font-size:20px;font-weight:bold">Tools </h3>
+                <p>@ViewBag.project.proj_tools</p>
+            </li>
+        </ul>
+
+    }
+    <br><br>
+    @*@Html.ActionLink("Update", "editidea", new { id = @ViewBag.project.Id })*@
+
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <!-- table that shows volunteer record list -->
+                <table class="table hoverable bordered" style="color:white;background-color:inherit;border-radius:20px; margin-top:-190px; opacity:1;">
+                    <thead>
+                        <tr style="font-size:20px;font-weight:bold;">
+                            <th id="f">Name	</th>
+                            <th id="f">Email</th>
+                            <th id="f">Gpa</th>
+                            <th id="f">Level</th>
+                            <th id="f">Transaction</th>
+                            <th id="f">action</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="width:230px;">@ViewBag.user.fullname</td>
+                            <td class="breakEmail" style="width:230px;">@ViewBag.user.email</td>
+                            <td style="width:230px;">@ViewBag.leader.std_gpa</td>
+                            <td style="width:230px;">@ViewBag.leader.std_level</td>
+                            <td style="width:230px;"><a href="~/Uploads/@ViewBag.leader.std_trans" style="color:#88a3b8;">my image</a></td>
+                            <td class="e_d" style="width:230px;color:#039be5;">
+                                @Html.ActionLink("Edit Leader", "editleader", new { id = @ViewBag.leader.Id})
+                            </td>
+                        </tr>
+
+                        @for (int i = 0; i < ViewBag.numberRow; i++)
+                        {
+                            <tr>
+                                <td>@ViewBag.member2[i].fullname</td>
+                                <td class="breakEmail">@ViewBag.member2[i].email</td>
+                                <td>@ViewBag.member2[i].mem_gpa</td>
+                                <td>@ViewBag.member2[i].mem_level</td>
+                                <td><a href="~/Uploads/@ViewBag.member2[i].mem_trans" style="color:#88a3b8;">my image</a></td>
+                                <td style=" font-family:sans-serif;">
+                                    @Html.ActionLink("Update", "editmem", new { id = @ViewBag.member2[i].Id })
+                                    <br />
+                                    @Html.ActionLink("Delete", "deletemem", new { id = @ViewBag.member2[i].Id })
+                                    @*<a href="deletemember2" class="waves-effect waves-light btn customAction">
+                                            <i class="material-icons left">delete</i>Delete
+                                        </a>*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)"></dir-pagination-controls>
+            </div> <!-- end col s12 -->
+        </div> <!-- end row -->
+    </div> <!-- end container -->
+
+
+</div>
+
+
+

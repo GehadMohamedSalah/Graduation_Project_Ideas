@@ -1,0 +1,39 @@
+﻿@{
+    ViewBag.Title = "AddMember";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<div>
+    <ul id="progressbar">
+        <li >Team Member</li>
+        <li class="active">Project Idea</li>
+        <li>Professors</li>
+    </ul>
+    @using (Html.BeginForm("Create", "projects", FormMethod.Post, new { id = "msform", @style = "height:600px;", enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <fieldset>
+        <h2 class="fs-title">Project Idea</h2>
+        <input type="text" name="proj_name" Placeholder="Idea Name" />
+        <textarea name="proj_desc" Placeholder="Idea  Describtion ..."></textarea>
+        <textarea name="proj_tools" Placeholder="Tools Which Will use ..."></textarea>
+        <input type="hidden" id="teamleader_id" value="@Session["userid"]" />
+        <input type="submit" value="Add Project" name="addProject" />
+        <a href="/Student/AddMember">Previous</a>
+        <a href="/Student/SelectProf">Next</a>
+        <input type="button" name="next" class="next action-button" value="Next" />
+    </fieldset>
+        
+    }
+
+
+    <!-- multistep form -->
+    <!-- progressbar -->
+    <!-- fieldsets -->
+
+
+
+
+</div>
+

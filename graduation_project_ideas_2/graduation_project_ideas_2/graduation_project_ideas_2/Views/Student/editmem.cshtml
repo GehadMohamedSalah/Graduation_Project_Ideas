@@ -1,0 +1,104 @@
+﻿@model graduation_project_ideas_2.Models.members
+
+@{
+    ViewBag.Title = "editmem";
+    Layout = "~/Views/Shared/_StudentLayout.cshtml";
+}
+
+<div>
+    <center>
+
+        <section>
+            <h1>welcom @Model.fullname</h1>
+        </section>
+        <div class="table_of_books" style="width:740px;background-color:inherit;color:white;border:groove">
+            <table>
+                <tr>
+                    <td>
+                        <div style="width:100px;">Full Name</div>
+                        <div>Email</div>
+                    </td>
+                    <td style=" color:white">
+                        <div class="title">@Html.DisplayFor(model => model.fullname)</div>
+                        <div><span class="book_year">@Html.DisplayFor(model => model.email)</span><span class="year_format"></span></div>
+                    </td>
+                    <td>
+                        <p><button id="edit" style="border-radius:10px; height:40px; background-color:#88a3b8;">Edit</button></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div id="edition_field" style="display:none; width:740px;background-color:inherit;border:groove;">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <table>
+                    <tr>
+                        <td> <label style="color:white;">gpa</label> </td>
+                        <td>
+                           @* <input type="text" id="gpa" name="gpa"  value=" @Html.DisplayFor(model => model.mem_gpa ) " style="width:500px; border-radius:10px;" />*@
+                            @Html.EditorFor(model => model.mem_gpa , new {HtmlAttributes = new {@type="number" , @id = "mem_gpa", @name = "mem_gpa", @style = "width:500px; border-radius:10px;" } })
+                            @Html.ValidationMessageFor(model => model.mem_gpa, "", new { @class = "text-danger" })
+                        </td>
+
+                    </tr>
+
+                    <tr>
+                        <td><label style="color:white;">skills</label> </td>
+                        <td>
+                            @*<input type="text" id="skills" name="skills" required value="@Html.DisplayFor(model => model.mem_skills)" style="width:500px; border-radius:10px;" />*@
+                            @Html.EditorFor(model => model.mem_skills, new { HtmlAttributes = new { @id = "mem_skills", @name = "mem_skills", @style = "width:500px; border-radius:10px;" } })
+                            @Html.ValidationMessageFor(model => model.mem_skills, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><label style="color:white;">level</label> </td>
+                        <td>
+                            @*<input type="text" id="level" name="level" required value="@Html.DisplayFor(model => model.mem_level)" style="width:500px; border-radius:10px;" />*@
+                            @Html.EditorFor(model => model.mem_level, new { HtmlAttributes = new { @id = "mem_level", @name = "mem_level", @style = "width:500px; border-radius:10px;" , @type = "number" } })
+                            @Html.ValidationMessageFor(model => model.mem_level, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label style="color:white;">fullname</label>
+                        </td>
+                        <td>
+                            @*<input type="text" id="fullname" name="fullname" required value="@Html.DisplayFor(model => model.fullname)" style="width:500px; border-radius:10px;" />*@
+                            @Html.EditorFor(model => model.fullname, new { HtmlAttributes = new { @id = "fullname", @name = "fullname", @style = "width:500px; border-radius:10px;" } })
+                            @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label style="color:white;">email</label>
+                        </td>
+                        <td>
+                            @*<input type="text" id="email" name="email" required value="@Html.DisplayFor(model => model.email)" style="width:500px; border-radius:10px;" />*@
+                            @Html.EditorFor(model => model.email, new { HtmlAttributes = new { @id = "email", @name = "email", @style = "width:500px; border-radius:10px;" , @type = "email" } })
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                        </td>
+                    </tr>
+                </table>
+
+                <button type="submit" value="NotDelivedEdit" style=" width:200px; border-radius:10px; background-color:#88a3b8;padding:5px;"> Edit </button>
+
+            }
+        </div>
+    </center>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#edit").click(function () {
+            $("#edition_field").slideToggle(1000);
+        })
+    });
+
+</script>

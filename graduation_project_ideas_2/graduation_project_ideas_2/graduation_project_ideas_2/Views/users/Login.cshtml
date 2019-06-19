@@ -1,0 +1,39 @@
+﻿@{
+        ViewBag.Title = "Login";
+        Layout = "~/Views/Shared/_HomeLayout.cshtml";
+    }
+    @Session["UserID"];
+    @Session["UserName"];
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <center>
+        <div class="row form-group" style="background-color:#758c9e;width:350px;padding:30px;padding-bottom:50px;border-radius:10px;">
+            <h3 style="color:white;">Login Form</h3>
+            <div class="col-md-12">
+@*@Html.LabelFor(model => model.fullname, htmlAttributes: new { @class = "control-label col-md-3" })*@
+<div class="col-md-12">
+                    <input type="text" name="username" placeholder="Enter User Name..." style="margin-bottom:15px;padding:5px;padding-right:50px;border-radius:5px;" required/>
+                </div>
+                <div class="col-md-12">
+                    <input type="password" name="password" placeholder="Enter Password..." style="margin-bottom:15px;padding:5px;padding-right:50px;border-radius:5px;" required/>
+                </div>
+                <div class="col-md-12">
+                    <input type="submit" value="Login" style="margin-bottom:15px;width:240px;border-radius:5px;color:white;font-size:20px;font-weight:bold;font-family:sans-serif;background-color:#88a3b8;"/>
+                </div>
+            </div>
+        </div>
+    </center>
+    }
+
+
+
+
+
+
+
+
+
+
